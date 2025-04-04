@@ -12,7 +12,7 @@ typedef WidgetWithChildBuilder =
       Widget child,
     );
 
-class AdaptivePosDialogRoute<T> extends PageRoute<T> {
+class AdaptivePosDialogRoute<T> extends BaseAdaptivePosDialogRoute<T> {
   AdaptivePosDialogRoute({
     this.closeProgressThreshold,
     required this.followerAnchor,
@@ -95,10 +95,10 @@ class AdaptivePosDialogRoute<T> extends PageRoute<T> {
   ) {
     double screenWidth = MediaQuery.of(context).size.width;
     bool isDialog = screenWidth > 600;
-    return isDialog ? buildDialog() : buildBottomSheet(context);
+    return isDialog ? buildDialog(context) : buildBottomSheet(context);
   }
 
-  Widget buildDialog() {
+  Widget buildDialog(BuildContext context) {
     final Widget pageChild = PosDialog(
       size: dialogSize,
       followerAnchor: followerAnchor,
@@ -145,6 +145,7 @@ class AdaptivePosDialogRoute<T> extends PageRoute<T> {
         bounce: bounce,
         enableDrag: enableDrag,
         animationCurve: animationCurve,
+        builder: builder,
       ),
     );
     return bottomSheet;

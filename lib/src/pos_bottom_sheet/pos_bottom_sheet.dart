@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pos_dialog/pos_dialog.dart';
 import 'package:pos_dialog/src/adaptive_pos_dialog_route.dart';
 import 'package:pos_dialog/src/pos_bottom_sheet/base_pos_bottom_sheet.dart';
 import 'package:pos_dialog/src/pos_bottom_sheet/utils/modal_scroll_controller.dart';
@@ -9,6 +10,7 @@ class PosBottomSheet<T> extends StatefulWidget {
   const PosBottomSheet({
     super.key,
     this.closeProgressThreshold,
+    required this.builder,
     required this.route,
     this.secondAnimationController,
     this.bounce = false,
@@ -16,9 +18,9 @@ class PosBottomSheet<T> extends StatefulWidget {
     this.enableDrag = true,
     this.animationCurve,
   });
-
+  final WidgetBuilder builder;
   final double? closeProgressThreshold;
-  final AdaptivePosDialogRoute<T> route;
+  final BaseAdaptivePosDialogRoute<T> route;
   final bool expanded;
   final bool bounce;
   final bool enableDrag;
@@ -93,7 +95,7 @@ class _PosBottomSheetState<T> extends State<PosBottomSheet<T>> {
                   explicitChildNodes: true,
                   child: BasePosBottomSheet(
                     closeProgressThreshold: widget.closeProgressThreshold,
-                    expanded: widget.route.expanded,
+                    expanded: widget.expanded,
                     containerBuilder: null,
                     animationController: widget.route.animationController!,
                     shouldClose:
@@ -129,7 +131,7 @@ class _PosBottomSheetState<T> extends State<PosBottomSheet<T>> {
                   ),
                 );
               },
-              child: widget.route.builder(context),
+              child: widget.builder(context),
             ),
       ),
     );
