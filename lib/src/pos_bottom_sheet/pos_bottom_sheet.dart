@@ -120,7 +120,7 @@ class _PosBottomSheetState<T> extends State<PosBottomSheet<T>> {
                             : null,
                     onClosing: () {
                       if (widget.route.isCurrent) {
-                        Navigator.of(context).pop();
+                        Navigator.of(context, rootNavigator: true).pop();
                       }
                     },
                     child: child!,
